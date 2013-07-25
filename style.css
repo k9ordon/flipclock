@@ -1,4 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900,100);
+
+
 
 
 *, *.after, *:before {
@@ -42,9 +44,7 @@ body {
 	text-align: center;
 
 	padding-bottom:40px;
-
-	font-family: Helvetica Neue, Verdana, sans-serif;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	
 	font-weight:100;
 	
@@ -71,10 +71,6 @@ body {
 #text {
 	display:inline-block;	
 	clear:both;
-	/*
-	border-top:10px solid white;
-	border-bottom:1px solid white;
-	*/
 }
 
 #text.resize {
@@ -88,28 +84,19 @@ body {
 
 .separator {
 	color:white;
-	opactiy:0.6;
+	opacity:0.8;
 	margin:40px 0;
-}
-
-.number {
 	position: relative;
-	overflow: hidden;
+	top:-25px;
+}
+.number {
+	-webkit-perspective: 440;
+	position: relative;
 	margin:40px 5px;
-
-
-/*
-	background: white;
-	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%);
-
-	color:black;
-	border-radius: 3px;
-
-	border:1px solid gray;
-	*/
+	position: relative;
 }
 
-.ready .number .old,
+.ready .number .new,
 .ready .number .current {
 	display:block;
 	width:100%;
@@ -118,39 +105,51 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+
+	-webkit-backface-visibility:hidden;
 }
 
-.ready .number .old {
+.ready .number .new:before,
+.ready .number .current:before {
+	content:'';
+	border-top: 1px solid rgba(0,0,0,0.1);
 	position: absolute;
+	width: 100%;
+	top:50%;
+}
+
+.ready .number .new {
+	position: absolute;
+	top:0;
 	left:0;
-	top:-100%;
+	-webkit-transform-origin:center 50%;
 }
 
 .ready .number .current {
 	position: absolute;
 	top:0;
+	left:0;
+	-webkit-transform-origin:center 50%;
 }
 
-@-webkit-keyframes fadeOutOld {
-	0%{ top:0; opacity:1; }
-	50%{ top:0; opacity:1; }
-	100%{ top:100%; opacity:0; }
+@-webkit-keyframes fadeOutCurrent {
+	0%{ opacity:1; -webkit-transform: rotateX(0deg); }
+	/*50%{ opacity:1; }*/
+	100%{ opacity:0; -webkit-transform: rotateX(-179deg);}
 }
 
-@-webkit-keyframes fadeInCurrent{
-	0%{ top:-100%; opacity:0; }
-	50% { top:-100%; }
-	80%{  opacity:0.2; }
-	100%{ top:0%; opacity:1; }
+@-webkit-keyframes fadeInNew{
+	0%{ opacity:0; -webkit-transform: rotateX(180deg); }
+	/*50%{  opacity:1; }*/
+	100%{ opacity:1; -webkit-transform: rotateX(0deg); }
 }
 
 .ready .number.changed .current {
-	-webkit-animation: fadeInCurrent 0.8s 0;
-
+	-webkit-animation: fadeOutCurrent 0.95s 0;
 }
 
-.ready .number.changed .old {
-	-webkit-animation: fadeOutOld 0.8s 0;
+.ready .number.changed .new {
+	-webkit-animation: fadeInNew 0.95s 0;
 
 }
 
