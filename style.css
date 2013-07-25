@@ -112,7 +112,7 @@ body {
 .ready .number .new:before,
 .ready .number .current:before {
 	content:'';
-	border-top: 1px solid rgba(0,0,0,0.1);
+	border-top: 2px solid rgba(0,0,0,1);
 	position: absolute;
 	width: 100%;
 	top:50%;
