@@ -1,0 +1,85 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+	<title>.clock</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="script.js"></script>
+
+	<meta name="viewport" content="width=480, minimum-scale=0.5" />
+</head>
+
+<body>
+
+
+	<p id="time">
+		
+		<span id="text">
+			
+			<span class="number" id="h1">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+			<span class="number" id="h2">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+			
+			<span class="separator">:</span>
+
+			<span class="number" id="m1">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+			<span class="number" id="m2">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+
+			<!--
+			<span class="separator">:</span>
+			
+			<span class="number" id="s1">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+			<span class="number" id="s2">
+				<span class="old"></span>
+				<span class="current"></span>
+			</span>
+			-->
+
+		</span>
+		
+		<span id="track"></span>
+		
+	</p>
+	
+	
+
+	<script type="text/javascript">	
+		// init
+		(function($) {
+		
+			resizeFontSize();
+			$(window).on('resize', function() { resizeFontSize(); });
+		
+			updateTime();
+			window.setInterval(updateTime, 1000);
+			
+			updateTrack();
+			window.setInterval(updateTrack, 60000);
+			
+		})(jQuery);
+		
+		
+
+	</script>
+
+</body>
+
+</html>
