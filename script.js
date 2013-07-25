@@ -87,15 +87,13 @@ function changeValue($number, newValue) {
 
 	if (value == newValue) return;
 
-	$number.addClass('changed');
-	
-	$('.current', $number).text(newValue);
-	$('.old', $number).html(value);
+	var $new = $('<span>').addClass('new').text(newValue).appendTo($number);
 
-	window.setTimeout(function() {
+	$number.addClass('changed').bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function(e){
+		$('.current', $number).text(newValue);
+		$new.remove();
 		$number.removeClass('changed');
-	}, 900);
-	
+	}); 	
 }
 
 function updateTrack() {
