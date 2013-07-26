@@ -87,25 +87,12 @@ function changeValue($number, newValue) {
 
 	if (value == newValue) return;
 
-	var $new = $('<span>').addClass('new').text(newValue).appendTo($number);
+	var $new = $('<span>').addClass('new').attr('data-number', newValue).appendTo($number);
 
 	$number.addClass('changed').bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function(e){
-		$('.current', $number).text(newValue);
+		$('.current', $number).text(newValue).attr('data-number', newValue);
 		$new.remove();
 		$number.removeClass('changed');
 	}); 	
-}
-
-function updateTrack() {
-	$.ajax({
-		url: 'http://ws.audioscrobbler.com/2.0/user/mracidfreak/recenttracks.xml',
-		dataType: 'xml',
-		success: function(data) {
-			$track = $(data).find('track:eq(0)');
-			title = $track.find('name').text() + ' - ' + $track.find('artist').text();
-
-			console.log([  Math.floor((new Date().getTime())/1000)    ]);
-		}
-	});
 }
 

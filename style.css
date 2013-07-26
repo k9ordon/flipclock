@@ -1,7 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900,100);
-
-
-
+@import url(http://fonts.googleapis.com/css?family=Roboto:100);
 
 *, *.after, *:before {
 	margin:0;
@@ -15,18 +12,13 @@ html, body {
 }
 
 body {
-	background:rgb(10,10,10);
+	background:black;
 	color:white;
 
 	display:box;
 	box-orient:horizontal;
 	box-pack:center;
 	box-align:center;
-
-	display:-moz-box;
-	-moz-box-orient:horizontal;
-	-moz-box-pack:center;
-	-moz-box-align:center;
 
 	display:-webkit-box;
 	-webkit-box-orient:horizontal;
@@ -44,8 +36,8 @@ body {
 	text-align: center;
 
 	padding-bottom:40px;
+
 	font-family: 'Roboto', sans-serif;
-	
 	font-weight:100;
 	
 	display:box;
@@ -53,19 +45,10 @@ body {
 	box-pack:center;
 	box-align:center;
 
-	display:-moz-box;
-	-moz-box-orient:horizontal;
-	-moz-box-pack:center;
-	-moz-box-align:center;
-
 	display:-webkit-box;
 	-webkit-box-orient:horizontal;
 	-webkit-box-pack:center;
 	-webkit-box-align:center;
-}
-
-#weather {
-	border:1px solid red;
 }
 
 #text {
@@ -84,10 +67,7 @@ body {
 
 .separator {
 	color:white;
-	opacity:0.8;
 	margin:40px 0;
-	position: relative;
-	top:-25px;
 }
 .number {
 	-webkit-perspective: 440;
@@ -95,61 +75,79 @@ body {
 	margin:40px 5px;
 	position: relative;
 }
-
+/*
+.number::before {
+	content:'';
+	border-top: 5px solid rgba(0,0,0,1);
+	position: absolute;
+	width: 100%;
+	top:50%;
+	z-index: 200;
+	left:0;
+}
+*/
 .ready .number .new,
 .ready .number .current {
 	display:block;
 	width:100%;
 	height:100%;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	position: absolute;
+	top:0;
+}
 
+.ready .number .new:before,
+.ready .number .new:after,
+.ready .number .current:before {
+	display: none;
+	content: attr(data-number);
+	position: absolute;
+	left:0;
+	height: 50%;
+	overflow: hidden;
 	-webkit-backface-visibility:hidden;
 }
 
 .ready .number .new:before,
+.ready .number .new:after,
+.ready .number .current,
 .ready .number .current:before {
-	content:'';
-	border-top: 2px solid rgba(0,0,0,1);
-	position: absolute;
-	width: 100%;
+	background: black;
+}
+
+.ready .number .new:before {
+	height: 50%;
 	top:50%;
+	line-height: 0;
+	-webkit-transform-origin:center top;
 }
-
-.ready .number .new {
-	position: absolute;
+.ready .number .current:before {
 	top:0;
-	left:0;
-	-webkit-transform-origin:center 50%;
+	-webkit-transform-origin:center bottom;
 }
 
-.ready .number .current {
-	position: absolute;
-	top:0;
-	left:0;
-	-webkit-transform-origin:center 50%;
+@-webkit-keyframes flipTop {
+	0%{ -webkit-transform: rotateX(0deg); }
+	50%{ -webkit-transform: rotateX(-90deg); }
+	100% { -webkit-transform: rotateX(-90deg); }
 }
 
-@-webkit-keyframes fadeOutCurrent {
-	0%{ opacity:1; -webkit-transform: rotateX(0deg); }
-	/*50%{ opacity:1; }*/
-	100%{ opacity:0; -webkit-transform: rotateX(-179deg);}
+@-webkit-keyframes flipBottom {
+	0%{ -webkit-transform: rotateX(90deg); }
+	50%{ -webkit-transform: rotateX(90deg); }
+	100%{ -webkit-transform: rotateX(0deg);}
 }
 
-@-webkit-keyframes fadeInNew{
-	0%{ opacity:0; -webkit-transform: rotateX(180deg); }
-	/*50%{  opacity:1; }*/
-	100%{ opacity:1; -webkit-transform: rotateX(0deg); }
+.ready .number.changed .current:before {
+	display: inline-block;
+	-webkit-animation: flipTop 0.8s linear;
+	z-index: 150;
 }
-
-.ready .number.changed .current {
-	-webkit-animation: fadeOutCurrent 0.95s 0;
+.ready .number.changed .new:before {
+	display: inline-block;
+	-webkit-animation: flipBottom 0.8s linear;
+	z-index: 150;
 }
-
-.ready .number.changed .new {
-	-webkit-animation: fadeInNew 0.95s 0;
-
+.ready .number.changed .new:after {
+	display: inline-block;
 }
 
